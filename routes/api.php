@@ -38,6 +38,18 @@ Route::group(['middleware' => 'api'], function () {
 
     //show specific post with answers
     Route::get('post/{id}','PostController@show');
+
+});
+
+//routes with authentication middleware
+Route::middleware('jwt.verify')->group(function () {
+
+    //auth routes
+    Route::get('user', 'UserController@getAuthenticatedUser');
+    Route::get('closed', 'DataController@closed');
+
+
+
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
