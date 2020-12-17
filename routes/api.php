@@ -58,6 +58,16 @@ Route::middleware('jwt.verify')->group(function () {
     Route::patch('post/{id}/solve', 'PostController@solvedByCreator');
 
     /*end posts routes*/
+
+    /*routes for answers*/
+
+    //store answer
+    Route::post('answers/store/{id}', 'AnswerController@store');
+
+    //give rate to answer and close the problem if the rate = 10
+    Route::patch('answer/{id}/rate' , 'AnswerController@rate');
+
+    /*end of answers routes*/
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
