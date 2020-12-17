@@ -32,7 +32,12 @@ Route::group(['middleware' => 'api'], function () {
 
     //get posts of specific category
     Route::get('categories-posts/{id}', 'CategoryController@showPosts');
-    
+
+    //get all posts
+    Route::get('posts', 'PostController@index');
+
+    //show specific post with answers
+    Route::get('post/{id}','PostController@show');
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
