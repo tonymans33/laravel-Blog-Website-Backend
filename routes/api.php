@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\API\AnswerController;
+use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\PostController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\Auth\DataController;
 use Illuminate\Http\Request;
@@ -28,16 +31,16 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
 Route::group(['middleware' => 'api'], function () {
 
     //get all categories
-    Route::get('categories' , 'CategoryController@index');
+    Route::get('categories' , [CategoryController::class, 'index']);
 
     //get posts of specific category
-    Route::get('categories-posts/{id}', 'CategoryController@showPosts');
+    Route::get('categories-posts/{id}', [CategoryController::class, 'showPosts']);
 
     //get all posts
-    Route::get('posts', 'PostController@index');
+    Route::get('posts', [PostController::class, 'index']);
 
     //show specific post with answers
-    Route::get('post/{id}','PostController@show');
+    Route::get('post/{id}', [PostController::class, 'show']);
 
 });
 
@@ -45,27 +48,27 @@ Route::group(['middleware' => 'api'], function () {
 Route::middleware('jwt.verify')->group(function () {
 
     //auth routes
-    Route::get('user', 'UserController@getAuthenticatedUser');
-    Route::get('closed', 'DataController@closed');
+    Route::get('user', [UserController::class, 'getAuthenticatedUser']);
+    Route::get('closed', [DataController::class, 'closed']);
 
     /*routes for posts*/
-    Route::resource('posts', 'PostController')->except('create', 'edit', 'index', 'show');
+    Route::resource('posts', PostController::class)->except('create', 'edit', 'index', 'show');
 
     //get user posts only
-    Route::get('posts-user', 'PostController@UserPosts');
+    Route::get('posts-user', [PostController::class, 'UserPosts']);
 
     //set post to solved
-    Route::patch('post/{id}/solve', 'PostController@solvedByCreator');
+    Route::patch('post/{id}/solve', [PostController::class, 'solvedByCreator']);
 
     /*end posts routes*/
 
     /*routes for answers*/
 
     //store answer
-    Route::post('answers/store/{id}', 'AnswerController@store');
+    Route::post('answers/store/{id}', [AnswerController::class, 'store']);
 
     //give rate to answer and close the problem if the rate = 10
-    Route::patch('answer/{id}/rate' , 'AnswerController@rate');
+    Route::patch('answer/{id}/rate' , [AnswerController::class, 'rate']);
 
     /*end of answers routes*/
 });
