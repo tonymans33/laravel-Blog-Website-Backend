@@ -48,8 +48,16 @@ Route::middleware('jwt.verify')->group(function () {
     Route::get('user', 'UserController@getAuthenticatedUser');
     Route::get('closed', 'DataController@closed');
 
+    /*routes for posts*/
+    Route::resource('posts', 'PostController')->except('create', 'edit', 'index', 'show');
 
+    //get user posts only
+    Route::get('posts-user', 'PostController@UserPosts');
 
+    //set post to solved
+    Route::patch('post/{id}/solve', 'PostController@solvedByCreator');
+
+    /*end posts routes*/
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
