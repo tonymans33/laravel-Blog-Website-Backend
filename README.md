@@ -24,7 +24,7 @@ You will find all the apis in **routes/api.php**
 - Install postman if you haven't it's an **API testing tool**
     - In api doc you will find some routes that dosen't require auth then you can type the api directly in postman and see the result
     - In auth require case you will have to user login api first 
-    - Put the jwt token key in each api **Headers -> Key = Authorization , Value = Bearer + "your token" **
+    - Put the jwt token key in each api **Headers -> Key = Authorization , Value = Bearer + {your token}**
     - Some apies requires params you will have to enter the name of the param and the value for each one 
 
 - Test apis and see the output you can create, show, edit, delete for posts and comments you will find all apis in **Api-doc/api-doc.xlsx**
