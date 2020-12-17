@@ -12,7 +12,7 @@ class Category extends Model
     protected $fillable = ['name'];
 
     public function posts(){ //has many relation that the category has many posts
-        return $this->hasMany('App\Post');
+        return $this->hasMany('App\Models\Blog\Post');
     }
 
     use HasFactory;

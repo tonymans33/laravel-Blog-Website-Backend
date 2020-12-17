@@ -12,11 +12,11 @@ class Answer extends Model
     protected $fillable = ['body', 'post_id', 'rate', 'user_id'];
 
     public function post(){ //belong to relation that each answer belongs to one post
-        return $this->belongsTo('App\Post');
+        return $this->belongsTo('App\Models\Blog\Post');
     }
 
     public function users(){ //many to many relation that each user can have multiple answers
-        return $this->belongsToMany('App\User');
+        return $this->belongsToMany('App\Models\Blog\User');
     }
 
     public function incRate(){ //function to increase rate property by 1

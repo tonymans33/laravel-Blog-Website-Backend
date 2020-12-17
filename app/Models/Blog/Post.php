@@ -12,11 +12,11 @@ class Post extends Model
     protected $fillable = ['title', 'body', 'category_id', 'user_id', 'solved'];
 
     public function category(){ //belong to relation that each post belongs to one category
-        return $this->belongsTo('App\Category');
+        return $this->belongsTo('App\Models\Blog\Category');
     }
 
     public function answers(){ //has many relation that each post can have many answers
-        return $this->hasMany('App\Answer');
+        return $this->hasMany('App\Models\Blog\Answer');
     }
 
     public function setSolved(){ //function to close the post that means the post in has been solved
