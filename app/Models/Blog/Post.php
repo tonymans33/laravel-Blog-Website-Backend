@@ -20,7 +20,7 @@ class Post extends Model
     }
 
     public function user(){ //belong to relation that each post belongs to one user
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Models\User');
     }
 
     public function setSolved(){ //function to close the post that means the post in has been solved

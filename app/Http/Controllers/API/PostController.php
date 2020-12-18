@@ -61,10 +61,10 @@ class PostController extends Controller
      * @return JsonResponse
      */
     public function update(UpdatePostRequest $request, $id){
+
         $post = Post::find($id);
         $input = $request->validated();
         $post->updated_at = Carbon::now();
-
 
         return response()->json(['data' => new PostResource($post->fill($input)), 'msg' => 'Post Updated successfully ! ']);
     }
