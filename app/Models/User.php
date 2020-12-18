@@ -61,4 +61,8 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany('App\Models\Blog\Post');
     }
 
+    public function answers(){ //has many relation that each user can create many answers
+        return $this->hasMany('App\Models\Blog\Answer');
+    }
+
 }

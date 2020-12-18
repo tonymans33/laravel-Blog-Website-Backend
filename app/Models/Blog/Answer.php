@@ -15,8 +15,8 @@ class Answer extends Model
         return $this->belongsTo('App\Models\Blog\Post');
     }
 
-    public function users(){ //many to many relation that each user can have multiple answers
-        return $this->belongsToMany('App\Models\Blog\User');
+    public function users(){ //belong to relation that each answer is belong to one user
+        return $this->belongsTo('App\Models\User');
     }
 
     public function incRate(){ //function to increase rate property by 1
