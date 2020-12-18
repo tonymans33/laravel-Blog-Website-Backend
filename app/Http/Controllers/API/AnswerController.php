@@ -22,11 +22,10 @@ class AnswerController extends Controller
 
             $input['rate'] = 0;
             $input['post_id'] = $id;
+            $input['user_id'] = auth()->user()->id;
             $input['created_at'] = Carbon::now();
 
             $answer = Answer::create($input);
-
-            $answer->users()->attach(auth()->user()->id, ['rate' => false]);
 
             return response()->json(['data' => new  AnswerResource($answer), 'msg' => 'Answer Created Successfully !']);
         }
