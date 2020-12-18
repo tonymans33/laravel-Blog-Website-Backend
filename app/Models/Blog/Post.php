@@ -19,6 +19,10 @@ class Post extends Model
         return $this->hasMany('App\Models\Blog\Answer');
     }
 
+    public function user(){ //belong to relation that each post belongs to one user
+        return $this->belongsTo('App\User');
+    }
+
     public function setSolved(){ //function to close the post that means the post in has been solved
         $this->update(['solved' => true]);
     }
