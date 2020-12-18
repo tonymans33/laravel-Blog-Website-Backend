@@ -8,9 +8,10 @@ use App\Http\Requests\Answers\GiveAnswerRateRequest;
 use App\Http\Resources\AnswerResource;
 use App\Models\Blog\Answer;
 use App\Models\Blog\Post;
+use App\Models\Blog\Rate;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+
 
 class AnswerController extends Controller
 {
@@ -48,26 +49,30 @@ class AnswerController extends Controller
         $user_id = auth()->user()->id;
 
         while($answer->rate <= 10) {
-            if( $answer->rate == 10 ){
+
+            if( $answer->rate == 10 ){ //post solved case
+
                 $answer->post->setSolved();
                 return response()->json(['data' =>  $answer->rate, 'msg' => 'This Post has been solved !']);
             }
-            else if($request->rate == 1){
+            else if($request->rate == 1){ //give rate = 1 case
 
-                $answer->users()->detach($user_id);
-                $answer->users()->attach($user_id, ['rate' => true]);
+                Rate::create([
+                   'user_id' => $user_id,
+                   'answer_id' => $answer->id
+                ]);
 
-                $answer->incRate();
+                $answer->incRate(); //increase answer rate counter by 1
+
                 return response()->json(['data' =>  $answer->rate, 'msg' => 'Answer rate increased !']);
             }
 
-            else if($request->rate == 0){
+            else if($request->rate == 0){ //give rate = 0 case "dislike"
 
-                $answer->users()->detach($user_id);
+                Rate::where('answer_id', $answer->id)->where('user_id', $user_id)->delete(); //removing record from rates table
 
-                $answer->users()->attach($user_id, ['rate' => false]);
+                $answer->decRate(); //decrease answer rate counter by 1
 
-                $answer->decRate();
                 return response()->json(['data' =>  $answer->rate, 'msg' => 'Answer rate decreased !']);
 
             }
