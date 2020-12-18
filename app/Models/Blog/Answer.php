@@ -19,6 +19,10 @@ class Answer extends Model
         return $this->belongsTo('App\Models\User');
     }
 
+    public function rates(){ //has many relation that each answer can have many rates
+        return $this->hasMany('App\Models\Blog\Rate');
+    }
+
     public function incRate(){ //function to increase rate property by 1
         $this->update(['rate' => $this->rate + 1]);
     }
